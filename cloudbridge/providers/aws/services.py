@@ -741,7 +741,7 @@ class AWSInstanceService(BaseInstanceService):
               priority=BaseInstanceService.STANDARD_EVENT_PRIORITY)
     def create(self, label, image, vm_type, subnet,
                key_pair=None, vm_firewalls=None, user_data=None,
-               launch_config=None, **kwargs):
+               launch_config=None, public_ip=None, **kwargs):
         AWSInstance.assert_valid_resource_label(label)
         image_id = image.id if isinstance(image, MachineImage) else image
         vm_size = vm_type.id if \
@@ -752,6 +752,9 @@ class AWSInstanceService(BaseInstanceService):
         key_pair_name = key_pair.name if isinstance(
             key_pair,
             KeyPair) else key_pair
+        if public_ip:
+        else: 
+            public_ip = None
         if launch_config:
             bdm = self._process_block_device_mappings(launch_config)
         else:
